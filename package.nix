@@ -5,7 +5,7 @@
   fetchzip,
   appimageTools,
   makeWrapper,
-  nativeWayland ? false,
+  nativeWayland ? true,
 }:
 
 let
