@@ -1,5 +1,5 @@
 {
-  description = "An updated flake for osu!lazer";
+  description = "an updated flake for osu!lazer";
 
   inputs = {
     nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
