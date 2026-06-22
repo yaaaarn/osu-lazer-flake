@@ -1,0 +1,76 @@
+# 🪇 osu-lazer-flake
+
+![version](https://img.shields.io/badge/version-2026.620.0-blue)
+
+a nix flake for [osu!lazer](https://osu.ppy.sh) — the next-generation version of the rhythm game.
+
+## table of contents
+
+- [prerequisites](#prerequisites)
+- [install](#install)
+- [usage](#usage)
+  - [nixos](#nixos)
+  - [home-manager](#home-manager)
+  - [temporary shell](#temporary-shell)
+- [flake outputs](#flake-outputs)
+- [wayland](#wayland)
+
+## prerequisites
+
+- [nix](https://nixos.org) with flakes enabled
+- `allowUnfree = true` (set automatically by the flake)
+
+## install
+
+add to your `flake.nix` inputs:
+
+```nix
+osu-lazer-flake = {
+  url = "github:yaaaarn/osu-lazer-flake";
+  inputs.nixpkgs.follows = "nixpkgs";
+};
+```
+
+## usage
+
+### nixos
+
+```nix
+environment.systemPackages = [
+  inputs.osu-lazer-flake.packages.${system}.default
+];
+```
+
+### home-manager
+
+```nix
+home.packages = [
+  inputs.osu-lazer-flake.packages.${system}.default
+];
+```
+
+### temporary shell
+
+```bash
+nix run github:yaaaarn/osu-lazer-flake
+```
+
+## flake outputs
+
+| output | description |
+|---|---|
+| `packages.${system}.default` | osu!lazer binary (AppImage on Linux, .app bundle on macOS) |
+| `packages.${system}.osu-lazer-bin` | same as `default`, accessible by name |
+| `overlays.default` | nixpkgs overlay exposing `osu-lazer-bin` |
+
+## wayland
+
+on wayland + nvidia, the flake passes extra bwrap args to fix the opengl renderer. to force the sdl wayland backend:
+
+```nix
+osu-lazer-bin = pkgs.callPackage inputs.osu-lazer-flake.packages.${system}.osu-lazer-bin.override {
+  nativeWayland = true;
+};
+```
+
+

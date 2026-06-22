@@ -1,0 +1,50 @@
+name: Update
+
+on:
+  schedule:
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: nixos/nix/install@v0
+        with:
+          determinate: true
+
+      - name: Run update script
+        id: update
+        run: |
+          if ./update.sh; then
+            if ! git diff --quiet; then
+              echo "changed=true" >> "$GITHUB_OUTPUT"
+            fi
+          else
+            echo "update failed (may be already up to date)"
+          fi
+
+      - name: Create pull request
+        if: steps.update.outputs.changed == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          VERSION=$(sed -n 's/^\s*version = "\(.*\)";/\1/p' package.nix)
+          BRANCH="auto-update-$VERSION"
+          git checkout -b "$BRANCH"
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add package.nix
+          git commit -m "osu-lazer-bin: $VERSION"
+          git push origin "$BRANCH"
+          gh pr create \
+            --title "osu-lazer-bin: $VERSION" \
+            --body "Automated update to osu!lazer **$VERSION**." \
+            --head "$BRANCH" \
+            --base main
