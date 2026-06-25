@@ -15,9 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - uses: nixos/nix/install@v0
-        with:
-          determinate: true
+      - uses: cachix/install-nix-action@v31
 
       - name: Run update script
         id: update
