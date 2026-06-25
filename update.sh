@@ -52,8 +52,8 @@ update_hash() {
     HASH=$(nix-prefetch-url --type sha256 "$url" 2>/dev/null)
   fi
 
-  SRI=$(nix hash convert --hash-algo sha256 --to sri "sha256-$HASH" 2>/dev/null || echo "sha256-$HASH")
-
+  SRI=$(nix-hash --type sha256 --to-sri $HASH 2>/dev/null)
+  
   # escape forward slashes in SRI for sed
   SRI_ESC=$(echo "$SRI" | sed 's|/|\\/|g')
 
