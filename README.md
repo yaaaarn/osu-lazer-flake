@@ -1,6 +1,6 @@
 # 🪇 osu-lazer-flake
 
-![version](https://img.shields.io/badge/version-2026.620.0-blue)
+![version](https://img.shields.io/badge/version-2026.624.0-blue)
 
 an updated flake for osu!lazer.
 

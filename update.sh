@@ -33,6 +33,11 @@ update_version() {
   sed -i "s/version = \".*\";/version = \"$LATEST\";/" "$PKG_FILE"
 }
 
+update_badge() {
+  info "updating readme badge to $LATEST"
+  sed -i "s/version-[0-9.]*-blue/version-$LATEST-blue/" "$PKG_DIR/README.md"
+}
+
 update_hash() {
   local key="$1"
   local url="$2"
@@ -56,6 +61,8 @@ update_hash() {
 }
 
 update_version
+
+update_badge
 
 update_hash "aarch64-darwin" "${ASSETS[aarch64-darwin]}" "true"
 update_hash "x86_64-darwin" "${ASSETS[x86_64-darwin]}" "true"
