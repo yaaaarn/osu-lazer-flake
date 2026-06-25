@@ -37,12 +37,13 @@ jobs:
         run: |
           VERSION=$(sed -n 's/^\s*version = "\(.*\)";/\1/p' package.nix)
           BRANCH="auto-update-$VERSION"
-          git checkout -b "$BRANCH"
+          git fetch origin "$BRANCH" || true
+          git checkout -B "$BRANCH"
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
           git add package.nix
           git commit -m "osu-lazer-bin: $VERSION"
-          git push origin "$BRANCH"
+          git push --force-with-lease origin "$BRANCH"
           gh pr create \
             --title "osu-lazer-bin: $VERSION" \
             --body "Automated update to osu!lazer **$VERSION**." \
