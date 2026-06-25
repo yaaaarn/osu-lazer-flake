@@ -21,6 +21,10 @@
         osu-lazer-bin = osu-lazer-bin;
       };
 
+      devShells.${system}.default = pkgs.mkShell {
+        packages = with pkgs; [ nix-prefetch-scripts curl gnused jq ];
+      };
+
       overlays.default = final: prev: {
         osu-lazer-bin = if prev.stdenv.hostPlatform.system == system then self.packages.${system}.osu-lazer-bin else prev.osu-lazer-bin;
       };
