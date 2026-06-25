@@ -2,7 +2,7 @@
 
 ![version](https://img.shields.io/badge/version-2026.620.0-blue)
 
-a nix flake for [osu!lazer](https://osu.ppy.sh) — the next-generation version of the rhythm game.
+an updated flake for osu!lazer.
 
 ## table of contents
 
