@@ -10,7 +10,7 @@
 
 let
   pname = "osu-lazer-bin";
-  version = "2026.624.0";
+  version = "2026.620.0";
 
   src =
     {
