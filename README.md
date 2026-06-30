@@ -52,6 +52,6 @@ nix run github:yaaaarn/osu-lazer-flake
 
 | output | description |
 |---|---|
-| `packages.${system}.default` | osu!lazer binary (AppImage on Linux, .app bundle on macOS) |
-| `packages.${system}.osu-lazer-bin` | same as `default`, accessible by name |
-| `overlays.default` | nixpkgs overlay exposing `osu-lazer-bin` |
+| `packages.${system}.default` | osu!lazer binary |
+| `packages.${system}.osu-lazer-bin` | same as `default` |
+| `overlays.default` | nixpkgs overlay for `osu-lazer-bin` |
