@@ -6,19 +6,12 @@ an updated flake for osu!lazer.
 
 ## table of contents
 
-- [prerequisites](#prerequisites)
 - [install](#install)
 - [usage](#usage)
   - [nixos](#nixos)
   - [home-manager](#home-manager)
   - [temporary shell](#temporary-shell)
 - [flake outputs](#flake-outputs)
-- [wayland](#wayland)
-
-## prerequisites
-
-- [nix](https://nixos.org) with flakes enabled
-- `allowUnfree = true` (set automatically by the flake)
 
 ## install
 
