@@ -62,15 +62,3 @@ nix run github:yaaaarn/osu-lazer-flake
 | `packages.${system}.default` | osu!lazer binary (AppImage on Linux, .app bundle on macOS) |
 | `packages.${system}.osu-lazer-bin` | same as `default`, accessible by name |
 | `overlays.default` | nixpkgs overlay exposing `osu-lazer-bin` |
-
-## wayland
-
-on wayland + nvidia, the flake passes extra bwrap args to fix the opengl renderer. to force the sdl wayland backend:
-
-```nix
-osu-lazer-bin = pkgs.callPackage inputs.osu-lazer-flake.packages.${system}.osu-lazer-bin.override {
-  nativeWayland = true;
-};
-```
-
-
